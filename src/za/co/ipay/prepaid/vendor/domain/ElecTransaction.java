@@ -1,7 +1,10 @@
 package za.co.ipay.prepaid.vendor.domain;
 
+import za.co.ipay.prepaid.vendor.client.dto.ElecTransactionDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,10 +40,30 @@ public class ElecTransaction  implements Serializable {
 
     @JoinColumn(name = "token_id")
     @OneToMany
-    private List<Token> tokens;
+    private List<Token> tokens = new ArrayList<>();
+
+    private String customerMsg;
+
+    private String rtlrMsg;
 
     @Version
     private int version;
+
+    public String getCustomerMsg() {
+        return customerMsg;
+    }
+
+    public void setCustomerMsg(String customerMsg) {
+        this.customerMsg = customerMsg;
+    }
+
+    public String getRtlrMsg() {
+        return rtlrMsg;
+    }
+
+    public void setRtlrMsg(String rtlrMsg) {
+        this.rtlrMsg = rtlrMsg;
+    }
 
     public List<Token> getTokens() {
         return tokens;

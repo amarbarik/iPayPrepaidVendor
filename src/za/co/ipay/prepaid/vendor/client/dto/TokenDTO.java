@@ -1,5 +1,7 @@
 package za.co.ipay.prepaid.vendor.client.dto;
 
+import za.co.ipay.prepaid.vendor.domain.Token;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,6 +24,17 @@ public class TokenDTO  implements Serializable {
     private String amount;
     private Date date;
     private String number;
+
+    public TokenDTO(String tokenType, String units, String receiptNumber, String tax, String message, String amount, Date date, String number) {
+        this.tokenType = tokenType;
+        this.units = units;
+        this.receiptNumber = receiptNumber;
+        this.tax = tax;
+        this.message = message;
+        this.amount = amount;
+        this.date = date;
+        this.number = number;
+    }
 
     public String getNumber() {
         return number;

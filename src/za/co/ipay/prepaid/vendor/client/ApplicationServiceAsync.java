@@ -23,4 +23,10 @@ public interface ApplicationServiceAsync {
     void getLastTransNumber(AsyncCallback<Integer> callback);
 
     void saveElecTransaction(ElecTransactionDTO elecTransaction, AsyncCallback<Long> async);
+
+    void getMeterByNumber(String number, AsyncCallback<MeterDTO> async);
+
+    void getPayTypeByName(String name, AsyncCallback<PayTypeDTO> async);
+
+    void getPrvsTransactions(AsyncCallback<List<ElecTransactionDTO>> async);
 }

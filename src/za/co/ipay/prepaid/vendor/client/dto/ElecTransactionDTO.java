@@ -1,6 +1,10 @@
 package za.co.ipay.prepaid.vendor.client.dto;
 
+import za.co.ipay.prepaid.vendor.domain.ElecTransaction;
+import za.co.ipay.prepaid.vendor.domain.Token;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +13,6 @@ import java.util.List;
 public class ElecTransactionDTO implements Serializable {
 
     private int id;
-
 
     private PayTypeDTO payType;
 
@@ -21,7 +24,35 @@ public class ElecTransactionDTO implements Serializable {
 
     private String responseCode;
 
-    List<TokenDTO> tokenDTOs;
+    List<TokenDTO> tokenDTOs = new ArrayList<>();
+    private String customerMsg;
+    private String rtlrMsg;
+    private int tranNumber;
+
+    public ElecTransactionDTO(PayTypeDTO payType, MeterDTO meter, String reference, String response,
+                              String responseCode, List<TokenDTO> tokenDTOs, String customerMsg, String rtlrMsg, int tranNumber) {
+        this.payType = payType;
+        this.meter = meter;
+        this.reference = reference;
+        this.response = response;
+        this.responseCode = responseCode;
+        this.tokenDTOs = tokenDTOs;
+        this.customerMsg = customerMsg;
+        this.rtlrMsg = rtlrMsg;
+        this.tranNumber = tranNumber;
+    }
+
+    public ElecTransactionDTO() {
+    }
+
+
+    public String getCustomerMsg() {
+        return customerMsg;
+    }
+
+    public void setCustomerMsg(String customerMsg) {
+        this.customerMsg = customerMsg;
+    }
 
     public List<TokenDTO> getTokenDTOs() {
         return tokenDTOs;
@@ -77,5 +108,21 @@ public class ElecTransactionDTO implements Serializable {
 
     public void setResponseCode(String responseCode) {
         this.responseCode = responseCode;
+    }
+
+    public void setRtlrMsg(String rtlrMsg) {
+        this.rtlrMsg = rtlrMsg;
+    }
+
+    public String getRtlrMsg() {
+        return rtlrMsg;
+    }
+
+    public int getTranNumber() {
+        return tranNumber;
+    }
+
+    public void setTranNumber(int tranNumber) {
+        this.tranNumber = tranNumber;
     }
 }

@@ -24,4 +24,10 @@ public interface ApplicationService extends RemoteService {
 
     Long saveElecTransaction(ElecTransactionDTO elecTransaction);
 
+    MeterDTO getMeterByNumber(String number);
+
+    PayTypeDTO getPayTypeByName(String name);
+
+    List<ElecTransactionDTO> getPrvsTransactions();
+
 }

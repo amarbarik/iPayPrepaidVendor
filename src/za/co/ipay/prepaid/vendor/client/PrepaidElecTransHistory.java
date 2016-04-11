@@ -7,16 +7,22 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+import za.co.ipay.prepaid.vendor.client.dto.ElecTransactionDTO;
+
+import java.util.List;
 
 /**
  * Created by F4742443 on 2016/03/11.
  */
 public class PrepaidElecTransHistory extends Composite {
 
+
+    private ApplicationServiceAsync applicationService = GWT.create(ApplicationService.class);
     @UiTemplate("PrepaidElecTransHistory.ui.xml")
     interface PrepaidElecTransHistoryUiBinder extends UiBinder<Widget, PrepaidElecTransHistory> {
     }
@@ -39,6 +45,46 @@ public class PrepaidElecTransHistory extends Composite {
         transTable.setCellPadding(3);
         transTable.getRowFormatter().addStyleName(0,"watchListHeader");
         transTable.addStyleName("watchList");
+
+
+        applicationService.getPrvsTransactions(new AsyncCallback<List<ElecTransactionDTO>>() {
+            @Override
+            public void onFailure(Throwable caught) {
+
+            }
+
+            @Override
+            public void onSuccess(List<ElecTransactionDTO> result) {
+                if(result == null){
+                    return;
+                }
+
+                for (int i = transTable.getRowCount() - 1; i > 0; i--) {
+                    if (transTable.isCellPresent(i, 0)) {
+                        transTable.clearCell(i, 0);
+                        transTable.clearCell(i, 1);
+                        transTable.clearCell(i, 2);
+                        transTable.clearCell(i, 3);
+                        transTable.clearCell(i, 4);
+                    } else {
+                        transTable.clearCell(i, 2);
+                    }
+                }
+                int index = 1;
+                for(ElecTransactionDTO elecTransactionDTO : result) {
+
+                    transTable.insertRow(index);
+
+                    transTable.setText(index, 0, String.valueOf(elecTransactionDTO.getId()));
+                    transTable.setText(index, 1, elecTransactionDTO.getReference());
+                    transTable.setText(index, 2, elecTransactionDTO.getMeter().getMeterNumber());
+                    transTable.setText(index, 3, String.valueOf(elecTransactionDTO.getTranNumber()));
+
+
+                }
+
+            }
+        });
     }
 
     @UiHandler("goBack")

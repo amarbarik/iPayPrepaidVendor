@@ -22,27 +22,23 @@ import java.util.Date;
  */
 public class TransformResponse implements Serializable {
 
-    public ElecTransactionDTO transform(String response) {
-        SAXHandler handler = new SAXHandler();
-        try {
+    public ElecTransactionDTO transform(String response) throws Exception {
+        System.out.println(response);
             SAXParserFactory parserFactor = SAXParserFactory.newInstance();
             SAXParser parser = parserFactor.newSAXParser();
+            SAXHandler handler = new SAXHandler();
             parser.parse(new ByteArrayInputStream(response.getBytes()),
                     handler);
-        } catch (IOException | ParserConfigurationException | SAXException e) {
-            System.out.println("Exception while transforming response! ");
-            return null;
-        }
-
-        return handler.getElecTransactionDTO();
+            return handler.getElecTransactionDTO();
     }
 }
 class SAXHandler extends DefaultHandler {
 
     private ElecTransactionDTO elecTransactionDTO = new ElecTransactionDTO();
 
-    private TokenDTO stdToken = new TokenDTO();
-    private TokenDTO bsstToken = new TokenDTO();
+
+    private TokenDTO stdToken;
+    private TokenDTO bsstToken;
 
     public ElecTransactionDTO getElecTransactionDTO() {
         return elecTransactionDTO;
@@ -58,7 +54,6 @@ class SAXHandler extends DefaultHandler {
     public void startElement(String uri, String localName,
                              String qName, Attributes attributes)
             throws SAXException {
-
         switch(qName){
             case "res":
                 String code = attributes.getValue("code");
@@ -66,6 +61,7 @@ class SAXHandler extends DefaultHandler {
                 elecTransactionDTO.setResponseCode(code);
                 break;
             case "stdToken":
+                stdToken = new TokenDTO();
                 stdToken.setUnits(attributes.getValue("units"));
                 stdToken.setReceiptNumber(attributes.getValue("rctNum"));
                 stdToken.setAmount(attributes.getValue("amt"));
@@ -75,12 +71,14 @@ class SAXHandler extends DefaultHandler {
                 stdToken.setTokenType(TokenDTO.STD_TOKEN);
                 break;
             case "bsstToken":
+                bsstToken = new TokenDTO();
                 bsstToken.setDate(Util.parseDate(attributes.getValue("trDate")));
                 bsstToken.setUnits(attributes.getValue("units"));
                 bsstToken.setAmount(attributes.getValue("amt"));
                 bsstToken.setTax(attributes.getValue("tax"));
                 bsstToken.setMessage(attributes.getValue("msg"));
                 bsstToken.setTokenType(TokenDTO.BSST_TOKEN);
+                break;
         }
     }
 
@@ -111,6 +109,12 @@ class SAXHandler extends DefaultHandler {
             case "bsstToken":
                 System.out.println(content);
                 bsstToken.setNumber(content);
+                break;
+            case "customerMsg" :
+                elecTransactionDTO.setCustomerMsg(content);
+                break;
+            case "rtlrMsg":
+                elecTransactionDTO.setRtlrMsg(content);
                 break;
         }
     }

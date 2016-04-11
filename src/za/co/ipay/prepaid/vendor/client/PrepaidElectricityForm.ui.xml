@@ -33,6 +33,7 @@
             font-weight: inherit;
 
         }
+
         .box {
             border: 1px solid #AACCEE;
             display: block;
@@ -48,47 +49,54 @@
             overflow: hidden;
         }
 
+        .response {
+            font-weight: bold;
+            color: darkblue;
+        }
+
     </ui:style>
     <g:HTMLPanel addStyleNames="{style.pretty} {style.center}">
         <div align="center">
-        <g:VerticalPanel  spacing="10" addStyleNames="{style.center}">
+            <g:VerticalPanel spacing="10" addStyleNames="{style.center}">
 
-            <g:HorizontalPanel spacing="5" >
-                <g:Label width="200px" addStyleNames="{style.left}, {style.labelFont}">Meter Number: </g:Label>
-                <g:ListBox width="206px" ui:field='meterBox' visibleItemCount='1'/>
-                <g:Label text="*" addStyleNames="{style.red_label}"/>
+                <g:HorizontalPanel spacing="5">
+                    <g:Label width="200px" addStyleNames="{style.left}, {style.labelFont}">Meter Number:</g:Label>
+                    <g:ListBox width="206px" ui:field='meterBox' visibleItemCount='1'/>
+                    <g:Label text="*" addStyleNames="{style.red_label}"/>
 
-            </g:HorizontalPanel>
+                </g:HorizontalPanel>
 
-            <g:HorizontalPanel spacing="5" >
-                <g:Label width="200px" addStyleNames="{style.left}, {style.labelFont}">Electricity Amount (ZAR): </g:Label>
-                <g:TextBox addStyleNames="{style.left}, {style.box}" ui:field='amount'/>
-                <g:Label text="*" addStyleNames="{style.red_label}"/>
+                <g:HorizontalPanel spacing="5">
+                    <g:Label width="200px" addStyleNames="{style.left}, {style.labelFont}">Electricity Amount (ZAR):
+                    </g:Label>
+                    <g:TextBox addStyleNames="{style.left}, {style.box}" ui:field='amount'/>
+                    <g:Label text="*" addStyleNames="{style.red_label}"/>
 
-            </g:HorizontalPanel>
+                </g:HorizontalPanel>
 
-            <g:HorizontalPanel spacing="5" >
-                <g:Label width="200px" addStyleNames="{style.left}, {style.labelFont}">Number Of Token: </g:Label>
-                <g:TextBox addStyleNames="{style.left}, {style.box}" ui:field='noOfToken'/>
-                <g:Label text="*" addStyleNames="{style.red_label}"/>
+                <g:HorizontalPanel spacing="5">
+                    <g:Label width="200px" addStyleNames="{style.left}, {style.labelFont}">Number Of Token:</g:Label>
+                    <g:TextBox addStyleNames="{style.left}, {style.box}" ui:field='noOfToken'/>
+                    <g:Label text="*" addStyleNames="{style.red_label}"/>
 
-            </g:HorizontalPanel>
+                </g:HorizontalPanel>
 
-            <g:HorizontalPanel spacing="5" >
-                <g:Label width="200px" addStyleNames="{style.left}, {style.labelFont}">Pay Type: </g:Label>
-                <g:ListBox width="206px" ui:field='payTypeBox' visibleItemCount='1'/>
-                <g:Label text="*" addStyleNames="{style.red_label}"/>
+                <g:HorizontalPanel spacing="5">
+                    <g:Label width="200px" addStyleNames="{style.left}, {style.labelFont}">Pay Type:</g:Label>
+                    <g:ListBox width="206px" ui:field='payTypeBox' visibleItemCount='1'/>
+                    <g:Label text="*" addStyleNames="{style.red_label}"/>
 
-            </g:HorizontalPanel>
-            <g:HorizontalPanel spacing="5" >
-                <g:Button ui:field='submit'>Submit</g:Button>
-                <g:Button ui:field='prvTrans'>History</g:Button>
-            </g:HorizontalPanel>
-
-            <g:HorizontalPanel>
+                </g:HorizontalPanel>
+                <g:HorizontalPanel spacing="5">
+                    <g:Button ui:field='submit'>Submit</g:Button>
+                    <g:Button ui:field='prvTrans'>History</g:Button>
+                </g:HorizontalPanel>
+            </g:VerticalPanel>
+            <g:VerticalPanel>
+            <g:HorizontalPanel spacing="5" addStyleNames="{style.response}">
                 <g:Label ui:field="displayResponse"/>
             </g:HorizontalPanel>
-    </g:VerticalPanel>
-    </div>
-</g:HTMLPanel>
+            </g:VerticalPanel>
+        </div>
+    </g:HTMLPanel>
 </ui:UiBinder>

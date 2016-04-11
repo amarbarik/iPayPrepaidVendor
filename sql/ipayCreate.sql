@@ -19,6 +19,8 @@ CREATE TABLE elec_trans (
   trans_id    NUMERIC(20) PRIMARY KEY,
   ref         VARCHAR(30)                     NULL,
   res_code    VARCHAR(255)                    NULL,
+  rtlrMsg         VARCHAR(30)                     NULL,
+  customerMsg    VARCHAR(255)                    NULL,
   pay_type_id NUMERIC(18) REFERENCES pay_type (pay_type_id),
   meter_id    NUMERIC(18) REFERENCES meter (meter_id),
   version     INTEGER                         NOT NULL,

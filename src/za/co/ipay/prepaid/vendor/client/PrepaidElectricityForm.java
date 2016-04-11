@@ -171,12 +171,61 @@ public class PrepaidElectricityForm extends Composite {
                                 messageService.transferResponse(responseMsg, new AsyncCallback<ElecTransactionDTO>() {
                                     @Override
                                     public void onFailure(Throwable caught) {
-
+                                        Window.alert("Failed to transform message: " + caught.getMessage());
                                     }
 
                                     @Override
-                                    public void onSuccess(ElecTransactionDTO result) {
-                                        displayResponse.setText("<br> Response Message: " + result.getResponse() );
+                                    public void onSuccess(final ElecTransactionDTO elecTransactionDTO) {
+                                        elecTransactionDTO.setTranNumber(lastTransNumber);
+                                        applicationService.getMeterByNumber(meterBox.getSelectedValue(), new AsyncCallback<MeterDTO>() {
+                                            @Override
+                                            public void onFailure(Throwable caught) {
+                                                System.out.println("Error getting meter by number!! " + caught.getMessage());
+
+                                            }
+
+                                            @Override
+                                            public void onSuccess(MeterDTO result) {
+                                                elecTransactionDTO.setMeter(result);
+
+                                            }
+                                        });
+
+                                        applicationService.getPayTypeByName(payTypeBox.getSelectedValue(), new AsyncCallback<PayTypeDTO>() {
+                                            @Override
+                                            public void onFailure(Throwable caught) {
+                                                System.out.println("Error getting payType by name!! " + caught.getMessage());
+
+                                            }
+
+                                            @Override
+                                            public void onSuccess(PayTypeDTO result) {
+                                                elecTransactionDTO.setPayType(result);
+
+                                            }
+                                        });
+
+
+                                        displayResponse.setText("Response: " + (elecTransactionDTO.getResponse().equals("OK") ?
+                                                elecTransactionDTO.getCustomerMsg() + "\n and here's the token Number: " +
+                                                        elecTransactionDTO.getTokenDTOs().get(0).getNumber() +
+                                                        " for Meter Number" + elecTransactionDTO.getMeter().getMeterNumber()
+                                        : elecTransactionDTO.getResponse()));
+
+                                        applicationService.saveElecTransaction(elecTransactionDTO, new AsyncCallback<Long>() {
+                                            @Override
+                                            public void onFailure(Throwable caught) {
+                                                System.out.println("Error while saving " + caught.getMessage());
+
+                                            }
+
+                                            @Override
+                                            public void onSuccess(Long result) {
+                                                System.out.println("Msg Saved Successfully");
+
+                                            }
+                                        });
+
                                     }
                                 });
                             }

@@ -1,5 +1,7 @@
 package za.co.ipay.prepaid.vendor.client.dto;
 
+import za.co.ipay.prepaid.vendor.domain.Meter;
+
 import java.io.Serializable;
 
 /**

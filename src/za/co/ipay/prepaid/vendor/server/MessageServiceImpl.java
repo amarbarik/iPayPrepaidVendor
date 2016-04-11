@@ -85,7 +85,12 @@ public class MessageServiceImpl extends RemoteServiceServlet implements MessageS
 
     @Override
     public ElecTransactionDTO transferResponse(String response) {
-        ElecTransactionDTO elecTransactionDTO = new TransformResponse().transform(response);
-        return  elecTransactionDTO;
+        try {
+            return new TransformResponse().transform(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("--------------" + e.getMessage());
+            return null;
+        }
     }
 }
