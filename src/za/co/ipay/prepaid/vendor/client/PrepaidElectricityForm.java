@@ -208,8 +208,7 @@ public class PrepaidElectricityForm extends Composite {
 
                                         displayResponse.setText("Response: " + (elecTransactionDTO.getResponse().equals("OK") ?
                                                 elecTransactionDTO.getCustomerMsg() + "\n and here's the token Number: " +
-                                                        elecTransactionDTO.getTokenDTOs().get(0).getNumber() +
-                                                        " for Meter Number" + elecTransactionDTO.getMeter().getMeterNumber()
+                                                        elecTransactionDTO.getTokenDTOs().get(0).getNumber()
                                         : elecTransactionDTO.getResponse()));
 
                                         applicationService.saveElecTransaction(elecTransactionDTO, new AsyncCallback<Long>() {
