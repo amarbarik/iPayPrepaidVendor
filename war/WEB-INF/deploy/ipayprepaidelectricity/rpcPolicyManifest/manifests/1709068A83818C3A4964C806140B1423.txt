@@ -1,0 +1,2 @@
+serviceClass: za.co.ipay.prepaid.vendor.client.MessageService
+path: 2DBF755BF47C1E6EA31E38521DA4DA97.gwt.rpc

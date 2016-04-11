@@ -1,0 +1,21 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:style>
+        .pretty {
+            background-color: Skyblue;
+        }
+
+        .flexTable td {
+            border: 1px solid #BBBBBB;
+            padding: 3px;
+        }
+    </ui:style>
+    <g:HTMLPanel addStyleNames="{style.pretty}">
+        <div align="center">
+            <g:VerticalPanel spacing="10">
+                <g:FlexTable addStyleNames="{style.flexTable}" ui:field="transTable"/>
+                <g:Button ui:field='goBack'>Go Back to form</g:Button>
+            </g:VerticalPanel>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

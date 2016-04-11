@@ -1,0 +1,39 @@
+INSERT INTO pay_type(
+  pay_type_id, name, description, version, enabled)
+VALUES (1, 'None', 'No Payment', 0, DEFAULT );
+
+INSERT INTO pay_type(
+  pay_type_id, name, description, version, enabled)
+VALUES (2, 'cash', 'Cash', 0, DEFAULT );
+
+INSERT INTO pay_type(
+  pay_type_id, name, description, version, enabled)
+VALUES (3, 'creditCard', 'Credit Card', 0, DEFAULT );
+
+INSERT INTO pay_type(
+  pay_type_id, name, description, version, enabled)
+VALUES (4, 'debitCard', 'Debit Card', 0, DEFAULT );
+
+INSERT INTO pay_type(
+  pay_type_id, name, description, version, enabled)
+VALUES (5, 'debitOrder', 'Debit Order', 0, DEFAULT );
+
+INSERT INTO pay_type(
+  pay_type_id, name, description, version, enabled)
+VALUES (6, 'cheque', 'Cheque', 0, DEFAULT );
+
+INSERT INTO pay_type(
+  pay_type_id, name, description, version, enabled)
+VALUES (7, 'postalOrder', 'Postal Order', 0, DEFAULT );
+
+INSERT INTO pay_type(
+  pay_type_id, name, description, version, enabled)
+VALUES (8, 'electronic', 'Electronic Transfer', 0, DEFAULT );
+
+INSERT INTO pay_type(
+  pay_type_id, name, description, version, enabled)
+VALUES (9, 'voucher', 'EVG Prepaid Voucher', 0, DEFAULT );
+
+INSERT INTO pay_type(
+  pay_type_id, name, description, version, enabled)
+VALUES (10, 'Other', 'Other(unlisted)', 0, DEFAULT );

@@ -1,0 +1,4 @@
+# Module ipayprepaidelectricity
+# RPC service class, partial path of RPC policy file
+za.co.ipay.prepaid.vendor.client.MessageService, 2DBF755BF47C1E6EA31E38521DA4DA97.gwt.rpc
+za.co.ipay.prepaid.vendor.client.ApplicationService, 93F680487D6CE582E1BBB5577CBDF6AC.gwt.rpc
