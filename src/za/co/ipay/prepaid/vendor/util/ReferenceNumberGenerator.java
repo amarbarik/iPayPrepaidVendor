@@ -21,7 +21,7 @@ public class ReferenceNumberGenerator implements Serializable {
         } else if(count > 99999) {
             count = 1;
         }
-        String countStr = Integer.toString(count);
+        String countStr = Integer.toString(count + 1);
         Calendar c = createCalendar();
         String dayOfYear = Integer.toString(c.get(Calendar.DAY_OF_YEAR));
         String minute = MINUTE_OF_THE_DAY.format(c.getTime());

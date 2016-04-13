@@ -29,8 +29,9 @@ public class ElecTransactionDTO implements Serializable {
     private String rtlrMsg;
     private int tranNumber;
 
-    public ElecTransactionDTO(PayTypeDTO payType, MeterDTO meter, String reference, String response,
+    public ElecTransactionDTO(int id, PayTypeDTO payType, MeterDTO meter, String reference, String response,
                               String responseCode, List<TokenDTO> tokenDTOs, String customerMsg, String rtlrMsg, int tranNumber) {
+        this.id = id;
         this.payType = payType;
         this.meter = meter;
         this.reference = reference;

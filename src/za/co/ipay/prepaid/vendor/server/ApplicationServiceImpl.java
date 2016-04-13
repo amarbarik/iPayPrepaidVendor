@@ -77,7 +77,7 @@ public class ApplicationServiceImpl extends RemoteServiceServlet implements
     public Integer getLastTransNumber() {
         Session session = DataBaseUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        List<ElecTransaction> list = session.createQuery("select max (tr.transactionNumber) from elec_trans tr ").list();
+        List<ElecTransaction> list = session.createQuery("select tr from elec_trans tr order by tr.transactionNumber desc ").list();
         session.getTransaction().commit();
         if(list.size() > 0 ) {
             ElecTransaction elecTransaction = list.get(0);
@@ -92,21 +92,34 @@ public class ApplicationServiceImpl extends RemoteServiceServlet implements
         Session session = DataBaseUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
+        System.out.println("------------------------SAVE");
         ElecTransaction elecTransaction = new ElecTransaction();
         elecTransaction.setCustomerMsg(elecTransactionDTO.getCustomerMsg());
         elecTransaction.setResponseCode(elecTransactionDTO.getResponseCode());
         elecTransaction.setResponse(elecTransactionDTO.getResponseCode());
         elecTransaction.setReference(elecTransactionDTO.getReference());
         elecTransaction.setRtlrMsg(elecTransactionDTO.getRtlrMsg());
-        elecTransaction.setTransactionNumber(elecTransactionDTO.getTranNumber());
-        elecTransaction.setPayType(session.load(PayType.class,elecTransactionDTO.getPayType().getId()));
-        elecTransaction.setMeter(session.load(Meter.class, elecTransactionDTO.getMeter().getId()));
-        for(TokenDTO tokenDTO : elecTransactionDTO.getTokenDTOs()) {
-            Token token = new Token(tokenDTO);
-            elecTransaction.getTokens().add(token);
-        }
+        elecTransaction.setTransactionNumber(elecTransactionDTO.getTranNumber() + 1);
 
+        System.out.println("Checking PayType" + elecTransactionDTO.getPayType());
+        int payTypeId = elecTransactionDTO.getPayType().getId();
+
+        System.out.println("CHECKING PAY TYPE ID" + payTypeId);
+        elecTransaction.setPayType(session.load(PayType.class, payTypeId));
+        System.out.println("CHECKING METER" + elecTransactionDTO.getMeter());
+
+        elecTransaction.setMeter(session.load(Meter.class, elecTransactionDTO.getMeter().getId()));
+        System.out.println("Checking Token DTOS size:" + elecTransactionDTO.getTokenDTOs().size());
+        if(elecTransactionDTO.getTokenDTOs().size() > 0) {
+            for (TokenDTO tokenDTO : elecTransactionDTO.getTokenDTOs()) {
+                Token token = new Token(tokenDTO);
+                elecTransaction.getTokens().add(token);
+            }
+        }
+        System.out.println("Before SAVA");
+        session.save(elecTransaction);
         session.getTransaction().commit();
+        System.out.println("AFTER COMMIT");
         return Long.valueOf(elecTransaction.getId());
     }
 
@@ -154,7 +167,7 @@ public class ApplicationServiceImpl extends RemoteServiceServlet implements
     }
 
     private ElecTransactionDTO getElectTranDTO(ElecTransaction elecTransaction) {
-        return new ElecTransactionDTO(
+        return new ElecTransactionDTO(elecTransaction.getId(),
                 createPayTypeDTO(elecTransaction.getPayType()), createMeterDTO(elecTransaction.getMeter()),
                 elecTransaction.getReference(), elecTransaction.getResponse(), elecTransaction.getResponseCode(),
                 createTokenDTOList(elecTransaction.getTokens()),elecTransaction.getCustomerMsg(), elecTransaction.getRtlrMsg(),

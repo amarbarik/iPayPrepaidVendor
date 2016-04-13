@@ -38,13 +38,14 @@ public class PrepaidElecTransHistory extends Composite {
         transTable.insertRow(0);
         transTable.setText(0, 0, "Transaction ID");
         transTable.setText(0, 1, "Reference Number");
-        transTable.setText(0, 2, "Response Code");
-        transTable.setText(0, 3, "Meter Number");
-        transTable.setText(0, 4, "Transaction Number");
+        transTable.setText(0, 2, "Response");
+        transTable.setText(0, 3, "Customer Message");
+        transTable.setText(0, 4, "Meter Number");
+        transTable.setText(0, 5, "Transaction Number");
         transTable.setCellSpacing(5);
         transTable.setCellPadding(3);
-        transTable.getRowFormatter().addStyleName(0,"watchListHeader");
-        transTable.addStyleName("watchList");
+        transTable.getRowFormatter().addStyleName(0,"transHistoryHeader");
+        transTable.addStyleName("transList");
 
 
         applicationService.getPrvsTransactions(new AsyncCallback<List<ElecTransactionDTO>>() {
@@ -66,6 +67,7 @@ public class PrepaidElecTransHistory extends Composite {
                         transTable.clearCell(i, 2);
                         transTable.clearCell(i, 3);
                         transTable.clearCell(i, 4);
+                        transTable.clearCell(i, 5);
                     } else {
                         transTable.clearCell(i, 2);
                     }
@@ -74,12 +76,14 @@ public class PrepaidElecTransHistory extends Composite {
                 for(ElecTransactionDTO elecTransactionDTO : result) {
 
                     transTable.insertRow(index);
+                    transTable.getRowFormatter().addStyleName(index, "transHistoryRow");
 
                     transTable.setText(index, 0, String.valueOf(elecTransactionDTO.getId()));
                     transTable.setText(index, 1, elecTransactionDTO.getReference());
-                    transTable.setText(index, 2, elecTransactionDTO.getMeter().getMeterNumber());
-                    transTable.setText(index, 3, String.valueOf(elecTransactionDTO.getTranNumber()));
-
+                    transTable.setText(index, 2, (elecTransactionDTO.getResponseCode() + "-" + elecTransactionDTO.getResponse()));
+                    transTable.setText(index, 3, elecTransactionDTO.getCustomerMsg());
+                    transTable.setText(index, 4, elecTransactionDTO.getMeter().getMeterNumber());
+                    transTable.setText(index, 5, String.valueOf(elecTransactionDTO.getTranNumber()));
 
                 }
 

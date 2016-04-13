@@ -38,7 +38,7 @@ h1 {
 }
 
 /* stock list header row */
-.watchListHeader {
+.transHistoryHeader {
     background-color: #2062B8;
     color: white;
     font-style: normal;
@@ -46,8 +46,15 @@ h1 {
     font-weight: bold;
 }
 
+.transHistoryRow {
+    background-color:azure;
+    color: black;
+    font-style: normal;
+    font-size: medium;
+}
+
 /* stock list flex table */
-.watchList {
+.transList {
     border: 1px solid black;
     padding: 2px;
     margin-bottom: 6px;

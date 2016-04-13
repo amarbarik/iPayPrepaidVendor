@@ -156,7 +156,6 @@ public class PrepaidElectricityForm extends Composite {
                 else {
                     lastTransNumber = 1;
                 }
-                System.out.println("--------------" + lastTransNumber);
                 messageService.sendMessageAndGetResponse(meterBox.getSelectedValue(), amount.getValue(), noOfToken.getValue(),
                         payTypeBox.getSelectedValue(), lastTransNumber, new AsyncCallback<String>() {
                             @Override
@@ -180,27 +179,39 @@ public class PrepaidElectricityForm extends Composite {
                                         applicationService.getMeterByNumber(meterBox.getSelectedValue(), new AsyncCallback<MeterDTO>() {
                                             @Override
                                             public void onFailure(Throwable caught) {
-                                                System.out.println("Error getting meter by number!! " + caught.getMessage());
+                                                Window.alert("Error while getting meter by number!! " + caught.getMessage());
 
                                             }
 
                                             @Override
                                             public void onSuccess(MeterDTO result) {
                                                 elecTransactionDTO.setMeter(result);
+                                                applicationService.getPayTypeByName(payTypeBox.getSelectedValue(), new AsyncCallback<PayTypeDTO>() {
+                                                    @Override
+                                                    public void onFailure(Throwable caught) {
+                                                        Window.alert("Error while getting payType by name!! " + caught.getMessage());
 
-                                            }
-                                        });
+                                                    }
 
-                                        applicationService.getPayTypeByName(payTypeBox.getSelectedValue(), new AsyncCallback<PayTypeDTO>() {
-                                            @Override
-                                            public void onFailure(Throwable caught) {
-                                                System.out.println("Error getting payType by name!! " + caught.getMessage());
+                                                    @Override
+                                                    public void onSuccess(PayTypeDTO result) {
+                                                        elecTransactionDTO.setPayType(result);
+                                                        applicationService.saveElecTransaction(elecTransactionDTO, new AsyncCallback<Long>() {
+                                                            @Override
+                                                            public void onFailure(Throwable caught) {
+                                                                Window.alert("Error while saving the transaction " + caught.getMessage());
 
-                                            }
+                                                            }
 
-                                            @Override
-                                            public void onSuccess(PayTypeDTO result) {
-                                                elecTransactionDTO.setPayType(result);
+                                                            @Override
+                                                            public void onSuccess(Long result) {
+                                                                System.out.println("Msg Saved Successfully");
+
+                                                            }
+                                                        });
+
+                                                    }
+                                                });
 
                                             }
                                         });
@@ -210,20 +221,6 @@ public class PrepaidElectricityForm extends Composite {
                                                 elecTransactionDTO.getCustomerMsg() + "\n and here's the token Number: " +
                                                         elecTransactionDTO.getTokenDTOs().get(0).getNumber()
                                         : elecTransactionDTO.getResponse()));
-
-                                        applicationService.saveElecTransaction(elecTransactionDTO, new AsyncCallback<Long>() {
-                                            @Override
-                                            public void onFailure(Throwable caught) {
-                                                System.out.println("Error while saving " + caught.getMessage());
-
-                                            }
-
-                                            @Override
-                                            public void onSuccess(Long result) {
-                                                System.out.println("Msg Saved Successfully");
-
-                                            }
-                                        });
 
                                     }
                                 });

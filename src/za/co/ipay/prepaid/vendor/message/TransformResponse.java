@@ -88,8 +88,6 @@ class SAXHandler extends DefaultHandler {
         switch(qName){
             case "elecMsg":
                 System.out.println(content);
-                elecTransactionDTO.getTokenDTOs().add(stdToken);
-                elecTransactionDTO.getTokenDTOs().add(bsstToken);
                 break;
             case "vendRes":
                 System.out.println(content);
@@ -105,10 +103,12 @@ class SAXHandler extends DefaultHandler {
             case "stdToken":
                 System.out.println(content);
                 stdToken.setNumber(content);
+                elecTransactionDTO.getTokenDTOs().add(stdToken);
                 break;
             case "bsstToken":
                 System.out.println(content);
                 bsstToken.setNumber(content);
+                elecTransactionDTO.getTokenDTOs().add(bsstToken);
                 break;
             case "customerMsg" :
                 elecTransactionDTO.setCustomerMsg(content);

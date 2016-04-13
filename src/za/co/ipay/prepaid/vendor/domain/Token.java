@@ -17,7 +17,7 @@ public class Token implements Serializable {
     @Column(name = "token_id")
     private int id;
 
-
+    // bi-directional many-to-one association to CustomerRequest
     @ManyToOne
     @JoinColumn(name = "trans_id")
     private ElecTransaction elecTransaction;
@@ -34,9 +34,9 @@ public class Token implements Serializable {
     private String message;
     @Column
     private String amount;
-    @Column
+    @Column(name = "date_generated")
     private Date date;
-    @Column
+    @Column(length = 40)
     private String number;
 
     @Version

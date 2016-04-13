@@ -14,13 +14,13 @@ public class PayType implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pay_type_id")
+    @Column(name = "pay_type_id", length = 18)
     private int id;
-    @Column(name = "name")
+    @Column(name = "name", length = 30, nullable = false)
     private String name;
     @Column
     private String description;
-    @Column
+    @Column(length = 1)
     private int enabled;
     @Version
     private int version;

@@ -6,6 +6,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import za.co.ipay.prepaid.vendor.builder.PayTypeBuilder;
 import za.co.ipay.prepaid.vendor.domain.ElecTransaction;
+import za.co.ipay.prepaid.vendor.domain.Meter;
 import za.co.ipay.prepaid.vendor.domain.PayType;
 
 import java.sql.Types;
@@ -40,5 +41,17 @@ public class DataBaseUtilTest {
             System.out.println(list.size());
             System.out.println(list.get(0));;
         }
+    }
+
+    @Test
+    @Ignore
+    public void testMeterByName() {
+        Session session = DataBaseUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        String number = "7776662221";
+        List<Meter> list = session.createQuery("select m from meter m where m.meterNumber like :mNumber")
+                .setParameter("mNumber", number).list();
+        session.getTransaction().commit();
+        System.out.println(list.size());
     }
 }

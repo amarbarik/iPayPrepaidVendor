@@ -38,8 +38,7 @@ public class ElecTransaction  implements Serializable {
     @Column(name = "trans_number")
     private int transactionNumber;
 
-    @JoinColumn(name = "token_id")
-    @OneToMany
+    @OneToMany(mappedBy = "elecTransaction", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Token> tokens = new ArrayList<>();
 
     private String customerMsg;

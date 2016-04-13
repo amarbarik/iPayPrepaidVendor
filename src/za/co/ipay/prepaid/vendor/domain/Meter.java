@@ -19,14 +19,14 @@ public class Meter implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "meter_id")
+    @Column(name = "meter_id", length = 18)
     private int id;
 
-    @Column(name = "meter_number")
+    @Column(name = "meter_number", length = 40)
     private String meterNumber;
     @Column(name = "address")
     private String address;
-    @Column(name = "enabled")
+    @Column(name = "enabled", length = 1)
     private int enabled;
 
     @Version
