@@ -1,8 +1,8 @@
 package za.co.ipay.prepaid.vendor.client;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.i18n.shared.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import za.co.ipay.prepaid.vendor.client.dto.ElecTransactionDTO;
+import za.co.ipay.prepaid.vendor.util.Util;
 
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class PrepaidElecTransHistory extends Composite {
         transTable.setText(0, 2, "Response");
         transTable.setText(0, 3, "Customer Message");
         transTable.setText(0, 4, "Meter Number");
-        transTable.setText(0, 5, "Transaction Number");
+        transTable.setText(0, 5, "Transaction Date");
         transTable.setCellSpacing(5);
         transTable.setCellPadding(3);
         transTable.getRowFormatter().addStyleName(0,"transHistoryHeader");
@@ -83,7 +84,7 @@ public class PrepaidElecTransHistory extends Composite {
                     transTable.setText(index, 2, (elecTransactionDTO.getResponseCode() + "-" + elecTransactionDTO.getResponse()));
                     transTable.setText(index, 3, elecTransactionDTO.getCustomerMsg());
                     transTable.setText(index, 4, elecTransactionDTO.getMeter().getMeterNumber());
-                    transTable.setText(index, 5, String.valueOf(elecTransactionDTO.getTranNumber()));
+                    transTable.setText(index, 5, (elecTransactionDTO.formatTransTime()));
 
                 }
 

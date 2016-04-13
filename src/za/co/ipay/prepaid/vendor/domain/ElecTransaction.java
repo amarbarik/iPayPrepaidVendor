@@ -5,6 +5,7 @@ import za.co.ipay.prepaid.vendor.client.dto.ElecTransactionDTO;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,8 +46,18 @@ public class ElecTransaction  implements Serializable {
 
     private String rtlrMsg;
 
+    private Date transTime;
+
     @Version
     private int version;
+
+    public Date getTransTime() {
+        return transTime;
+    }
+
+    public void setTransTime(Date transTime) {
+        this.transTime = transTime;
+    }
 
     public String getCustomerMsg() {
         return customerMsg;

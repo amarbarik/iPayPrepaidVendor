@@ -55,6 +55,8 @@ class SAXHandler extends DefaultHandler {
                              String qName, Attributes attributes)
             throws SAXException {
         switch(qName){
+            case "ipayMsg":
+                elecTransactionDTO.setTransTime(Util.parseDate(attributes.getValue("time")));
             case "res":
                 String code = attributes.getValue("code");
                 System.out.println(code);

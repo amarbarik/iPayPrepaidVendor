@@ -1,10 +1,13 @@
 package za.co.ipay.prepaid.vendor.client.dto;
 
+import com.google.gwt.i18n.client.DateTimeFormat;
 import za.co.ipay.prepaid.vendor.domain.ElecTransaction;
 import za.co.ipay.prepaid.vendor.domain.Token;
+import za.co.ipay.prepaid.vendor.util.Util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,9 +31,10 @@ public class ElecTransactionDTO implements Serializable {
     private String customerMsg;
     private String rtlrMsg;
     private int tranNumber;
+    private Date transTime;
 
     public ElecTransactionDTO(int id, PayTypeDTO payType, MeterDTO meter, String reference, String response,
-                              String responseCode, List<TokenDTO> tokenDTOs, String customerMsg, String rtlrMsg, int tranNumber) {
+                              String responseCode, List<TokenDTO> tokenDTOs, String customerMsg, String rtlrMsg, int tranNumber, Date transTime) {
         this.id = id;
         this.payType = payType;
         this.meter = meter;
@@ -41,11 +45,24 @@ public class ElecTransactionDTO implements Serializable {
         this.customerMsg = customerMsg;
         this.rtlrMsg = rtlrMsg;
         this.tranNumber = tranNumber;
+        this.transTime = transTime;
     }
 
     public ElecTransactionDTO() {
     }
 
+    public Date getTransTime() {
+        return transTime;
+    }
+
+    public String formatTransTime(){
+
+        return String.valueOf(transTime).substring(0,19);
+    }
+
+    public void setTransTime(Date transTime) {
+        this.transTime = transTime;
+    }
 
     public String getCustomerMsg() {
         return customerMsg;

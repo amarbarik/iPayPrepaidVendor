@@ -100,6 +100,7 @@ public class ApplicationServiceImpl extends RemoteServiceServlet implements
         elecTransaction.setReference(elecTransactionDTO.getReference());
         elecTransaction.setRtlrMsg(elecTransactionDTO.getRtlrMsg());
         elecTransaction.setTransactionNumber(elecTransactionDTO.getTranNumber() + 1);
+        elecTransaction.setTransTime(elecTransactionDTO.getTransTime());
 
         System.out.println("Checking PayType" + elecTransactionDTO.getPayType());
         int payTypeId = elecTransactionDTO.getPayType().getId();
@@ -171,7 +172,7 @@ public class ApplicationServiceImpl extends RemoteServiceServlet implements
                 createPayTypeDTO(elecTransaction.getPayType()), createMeterDTO(elecTransaction.getMeter()),
                 elecTransaction.getReference(), elecTransaction.getResponse(), elecTransaction.getResponseCode(),
                 createTokenDTOList(elecTransaction.getTokens()),elecTransaction.getCustomerMsg(), elecTransaction.getRtlrMsg(),
-                elecTransaction.getTransactionNumber());
+                elecTransaction.getTransactionNumber(),elecTransaction.getTransTime());
     }
 
     private List<TokenDTO> createTokenDTOList(List<Token> tokens) {
