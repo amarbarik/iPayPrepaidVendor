@@ -96,7 +96,7 @@ public class ApplicationServiceImpl extends RemoteServiceServlet implements
         ElecTransaction elecTransaction = new ElecTransaction();
         elecTransaction.setCustomerMsg(elecTransactionDTO.getCustomerMsg());
         elecTransaction.setResponseCode(elecTransactionDTO.getResponseCode());
-        elecTransaction.setResponse(elecTransactionDTO.getResponseCode());
+        elecTransaction.setResponse(elecTransactionDTO.getResponse());
         elecTransaction.setReference(elecTransactionDTO.getReference());
         elecTransaction.setRtlrMsg(elecTransactionDTO.getRtlrMsg());
         elecTransaction.setTransactionNumber(elecTransactionDTO.getTranNumber() + 1);
